@@ -1,23 +1,31 @@
-const { getStorage, ref, uploadBytes }=require("firebase/storage");
-const { addDoc,collection,onSnapshot }=require("firebase/firestore")
 
-const  { readFileSync }=require("fs")
-const storage = getStorage();
+const {storage}=require('../config');
+const { ref, uploadBytes } = require("firebase/storage");
+const { readFileSync, readdirSync } = require("fs");
+const path = require("path");
 
-const localImagePath= '../assetes/images/calisImg.jpg';
+const basePath = 'images/calisthenics/'
 
-const storagePath = 'images/calisthenics/' + new Date().getTime();
 
-const storageRef = ref(storage, storagePath);
-const fileData = readFileSync(localImagePath);
-const file = new Blob([fileData], { type: 'image/jpg' });
+function uploadImage(imageFile) {
+  const localImagePath = path.join(__dirname,'../assets/images',imageFile);
+  const storagePath = basePath + imageFile;
 
-// const file = new File([localImagePath], 'calisImg.jpg', { type: 'image/jpg' });
+  const storageRef = ref(storage, storagePath);
+  const fileContent = readFileSync(localImagePath);
+  const file = new Blob([fileContent]);
 
-uploadBytes(storageRef, file)
-  .then((snapshot) => {
-    console.log('Image uploaded successfully:', snapshot);
-  })
-  .catch((error) => {
-    console.error('Error uploading image:', error);
-  });
+  return uploadBytes(storageRef, file);
+}
+
+
+const imageFiles = readdirSync(path.join(__dirname, '../assets/images'));
+imageFiles.forEach((imageFile) => {
+  uploadImage(imageFile)
+    .then((snapshot) => {
+      console.log(`${imageFile} uploaded successfully`);
+    })
+    .catch((error) => {
+      console.error(`Error uploading ${imageFile}:`, error);
+    });
+});
