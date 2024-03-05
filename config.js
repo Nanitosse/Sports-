@@ -18,31 +18,8 @@ const firebaseConfig = {
     measurementId: "G-XQV48Q7LBF"
   };
   
-//   const app = initializeApp(firebaseConfig); 
-// if(!initializeApp.apps.length){
-//     initializeApp(firebaseConfig);
-// };
-//   const db = getFirestore(app);
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
+module.exports = { app, db, storage };
 
-const localImagePath= './assets/images/calisImg.jpg';
-
-const storagePath = 'images/calisthenics/calisImg.jpg';
-
-const storageRef = ref(storage, storagePath);
-const fileContent = readFileSync(localImagePath);
-
-// const file = new File([fileContent], 'calisImg.jpg', { type: 'image/jpg' });
-const file = new Blob([fileData], { type: 'image/jpg' });
-
-
-uploadBytes(storageRef, file)
-  .then((snapshot) => {
-    console.log('Image uploaded successfully:', snapshot);
-  })
-  .catch((error) => {
-    console.error('Error uploading image:', error);
-  });
