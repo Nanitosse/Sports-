@@ -1,33 +1,41 @@
 
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
-import { StatusBar } from 'react-native';
-// import React, { useState, useEffect } from 'react';
-// 
- start 
+import {app,storage,db} from './config'
+import 'firebase/storage';
+import firebase from  'firebase/app';
+import React, { useState, useEffect } from 'react';
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { firebaseConfig } from './config'; 
+
+
+
+
+
+
 
 
 export default function App() {
+  const [imageUrl, setImageUrl] = useState();
 
-  //  const [imageUrl, setImageUrl]=useState(null);
-  //  useEffect(() => {
-  //   const fetchImage = async () => {
-  //     const storageRef = firebase.storage().ref();
-  //     const imageRef = storageRef.child('gs://sporty-6fdac.appspot.com/images/calisthenics/soccer.png'); // Replace with your actual path
+  useEffect(() => {
 
-  //     try {
-  //       const url = await imageRef.getDownloadURL();
-  //       setImageUrl(url);
-  //     } catch (error) {
-  //       console.error('Error fetching image:', error);
-  //     }
-  //   };
+     const func=async()=>{
+        const storage= getStorage;
+        const reference= ref(storage,'/soccer.png')
+        await getDownloadURL(reference).then((x)=>{
+           setImageUrl(x)
+        })
 
-  //   fetchImage();
-  // }, []);
+     }
+
+     func()
+
+    },[])  
+
 
   return (
     <ImageBackground
-      source={require('./assets/images/gym.jpg')}
+      source={imageUrl ? { uri: imageUrl } : require('./assets/images/soccer.png')}
       style={{
         flex: 1,
         // resizeMode:'cover',
@@ -67,11 +75,5 @@ const styles = StyleSheet.create({
 
 });
 
-// const MyTheme = {
-//   ...DefaultTheme,
-//   colors: {
-//     ...DefaultTheme.colors,
-//     primary: 'rgb(255, 45, 85)',
-//     background: 'transparent',
-//   },
-// };
+
+
