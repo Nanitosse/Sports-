@@ -1,41 +1,23 @@
 
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
-import {app,storage,db} from './config'
+import { app, storage, db } from './config'
 import 'firebase/storage';
-import firebase from  'firebase/app';
+import firebase from 'firebase/app';
 import React, { useState, useEffect } from 'react';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { firebaseConfig } from './config'; 
-
-
-
-
-
-
+import image from './assets/images/soccer.png';
+import 'react-native-gesture-handler';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import Main from './screens/MainComponent';
 
 
 export default function App() {
-  const [imageUrl, setImageUrl] = useState();
-
-  useEffect(() => {
-
-     const func=async()=>{
-        const storage= getStorage;
-        const reference= ref(storage,'/soccer.png')
-        await getDownloadURL(reference).then((x)=>{
-           setImageUrl(x)
-        })
-
-     }
-
-     func()
-
-    },[])  
 
 
   return (
+
     <ImageBackground
-      source={imageUrl ? { uri: imageUrl } : require('./assets/images/soccer.png')}
+      source={image}
       style={{
         flex: 1,
         // resizeMode:'cover',
@@ -44,6 +26,9 @@ export default function App() {
       }}
 
     >
+      <NavigationContainer theme={MyTheme}  >
+        <Main />
+      </NavigationContainer>
 
     </ImageBackground>
 
@@ -53,7 +38,16 @@ export default function App() {
 
 
 
+
   );
+
+
+
+
+
+
+
+
 }
 
 const styles = StyleSheet.create({
@@ -75,5 +69,11 @@ const styles = StyleSheet.create({
 
 });
 
-
-
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'rgb(255, 45, 85)',
+    background: 'transparent',
+  },
+};
