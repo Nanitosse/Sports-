@@ -1,4 +1,4 @@
-
+import 'react-native-gesture-handler';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { app, storage, db } from './config'
 import 'firebase/storage';
@@ -9,6 +9,10 @@ import image from './assets/images/soccer.png';
 import 'react-native-gesture-handler';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import Main from './screens/MainComponent';
+import BottomTAb from './Custom/TabNav';
+
+
+
 
 
 export default function App() {
@@ -28,8 +32,8 @@ export default function App() {
     >
       <NavigationContainer theme={MyTheme}  >
         <Main />
+        
       </NavigationContainer>
-
     </ImageBackground>
 
 

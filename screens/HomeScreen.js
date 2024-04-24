@@ -12,11 +12,13 @@ import gym from '../assets/images/gym.jpg';
 
 
 const HomeScreen = () => {
+ 
   const navigation = useNavigation();
 
   return (
-    <View style={{ alignItems: 'center' }}>
-      <ScrollView style={{ paddingVertical: 10 }}>
+    <ScrollView style={{ paddingVertical: 10 }}>
+      <View style={{ alignItems: 'center' }}>
+
 
         <Tile
 
@@ -39,14 +41,18 @@ const HomeScreen = () => {
           imageSrc={nutrition}
           featured
 
-          height={230}
+          height={300}
         //   onPress={() => navigation.navigate('Intake')}
         />
 
 
-      </ScrollView>
-    </View>
-  );
+
+      </View>
+    </ScrollView>
+    
+  )
+
+
 
 }
 
