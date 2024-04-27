@@ -33,7 +33,7 @@ const HomeScreen = () => {
           imageSrc={gym}
           featured
 
-          height={230}
+          height={300}
         //   onPress={() => navigation.navigate('Intake')}
         />
         <Tile
