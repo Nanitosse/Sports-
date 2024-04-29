@@ -9,7 +9,7 @@ import image from './assets/images/soccer.png';
 import 'react-native-gesture-handler';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import Main from './screens/MainComponent';
-import BottomTAb from './Custom/TabNav';
+
 
 
 
@@ -31,8 +31,7 @@ export default function App() {
 
     >
       <NavigationContainer theme={MyTheme}  >
-        <Main />
-        
+          <Main />
       </NavigationContainer>
     </ImageBackground>
 
